@@ -6,10 +6,10 @@ function openModal(item) {
 
 function closeModal(item) {
   item.classList.remove("popup_is-opened");
+  document.removeEventListener("keydown", closeKey);
 }
 
 // Функция закрытия попапа по esc
-// перенесена сюда потому что используется только в openModal
 function closeKey(evt) {
   if (evt.key === "Escape") {
     const openPopup = document.querySelector(".popup_is-opened");
