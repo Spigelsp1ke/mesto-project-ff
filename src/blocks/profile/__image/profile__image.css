@@ -1,3 +1,25 @@
+.profile__image-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile__image-edit-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.6) center no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile__image-container:hover .profile__image-edit-icon {
+  opacity: 1;
+}
+
 .profile__image {
   width: 120px;
   height: 120px;
