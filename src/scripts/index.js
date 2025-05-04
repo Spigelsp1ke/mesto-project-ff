@@ -1,4 +1,3 @@
-//import { initialCards } from "./cards.js";
 import { createCard, deleteCard, likeCard } from "./card.js";
 import { openModal, closeModal } from "./modal.js";
 import "../pages/index.css";
@@ -37,7 +36,7 @@ const cardImageInput = cardFormElement.querySelector(".popup__input_type_url");
 const avatarPopup = document.querySelector(".popup_type_avatar");
 const avatarForm = document.forms["avatar-form"];
 const avatarInput = avatarForm.querySelector(".popup__input_type_avatar");
-const avatarEditArea = document.querySelector(".profile__image-container");
+const avatarEdit = document.querySelector(".profile__image-container");
 
 let userId = null;
 
@@ -105,7 +104,7 @@ addButton.addEventListener("click", function () {
   openModal(addPopup);
 });
 
-avatarEditArea.addEventListener("click", () => {
+avatarEdit.addEventListener("click", () => {
   avatarForm.reset();
   clearValidation(avatarForm, validationConfig);
   openModal(avatarPopup);
@@ -168,7 +167,7 @@ function handleCardSubmit(evt) {
 }
 
 cardFormElement.addEventListener("submit", handleCardSubmit);
-
+// обновление аватара
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
   renderLoading(true);
@@ -177,7 +176,7 @@ function handleAvatarSubmit(evt) {
       profileImage.src = userData.avatar;
       closeModal(avatarPopup);
     })
-    .catch((err) => console.error(err))
+    .catch((err) => console.error("Ошибка при обновлении аватара:", err))
     .finally(() => renderLoading(false));
 }
 

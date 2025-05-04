@@ -62,7 +62,7 @@ function likeCard(likeButton, cardId, likeCount) {
         likeCount.textContent = updatedCard.likes.length;
         likeButton.classList.add("card__like-button_is-active");
       })
-      .catch((err) => console.error("Ошибка при снятии лайка:", err));
+      .catch((err) => console.error("Ошибка при лайке:", err));
   }
 }
 
