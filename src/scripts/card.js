@@ -1,4 +1,4 @@
-import { addLike, removeLike, deleteCardFromServer } from "./api";
+import { addLike, removeLike, deleteCardFromServer } from "./api.js";
 // Функция создания карточки
 function createCard(cardItem, userId, deleteCard, openImagePopup, likeCard, cardTemplate) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -49,21 +49,14 @@ function deleteCard(cardElement, cardId) {
 }
 
 function likeCard(likeButton, cardId, likeCount) {
-  if (likeButton.classList.contains("card__like-button_is-active")) {
-    removeLike(cardId)
-      .then((updatedCard) => {
-        likeCount.textContent = updatedCard.likes.length;
-        likeButton.classList.remove("card__like-button_is-active");
-      })
-      .catch((err) => console.error("Ошибка при снятии лайка:", err));
-  } else {
-    addLike(cardId)
-      .then((updatedCard) => {
-        likeCount.textContent = updatedCard.likes.length;
-        likeButton.classList.add("card__like-button_is-active");
-      })
-      .catch((err) => console.error("Ошибка при лайке:", err));
-  }
+  const likeRequest = likeButton.classList.contains("card__like-button_is-active") ? removeLike : addLike
+
+  likeRequest(cardId)
+    .then((updatedCard) => {
+      likeCount.textContent = updatedCard.likes.length;
+      likeButton.classList.toggle("card__like-button_is-active");
+    })
+    .catch((err) => console.error("Ошибка при обработке лайка:", err));
 }
 
 export { createCard, deleteCard, likeCard };

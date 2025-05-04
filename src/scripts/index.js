@@ -40,15 +40,11 @@ const avatarEdit = document.querySelector(".profile__image-container");
 
 let userId = null;
 
-function renderLoading(isLoading) {
+function renderLoading(isLoading, buttonElement) {
   if (isLoading) {
-    popupButtons.forEach(function(popupButton){
-      popupButton.textContent = "Сохранение..."
-  })
+    buttonElement.textContent = "Сохранение..."
   } else {
-    popupButtons.forEach(function(popupButton){
-      popupButton.textContent = "Сохранить"
-  })
+    buttonElement.textContent = "Сохранить"
   }
 }
 
@@ -131,7 +127,8 @@ function openImagePopup(link, name) {
 // изменение информации в профиле
 function handleProfileSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true);
+  const submitButton = profileFormElement.querySelector(".popup__button");
+  renderLoading(true, submitButton);
   updateProfile(nameInput.value, jobInput.value)
     .then((userData) => {
       profileTitle.textContent = userData.name;
@@ -141,16 +138,15 @@ function handleProfileSubmit(evt) {
     .catch((err) => {
       console.error("Ошибка при обновлении профиля:", err);
     })
-    .finally(() => renderLoading(false));
-
-  closeModal(editPopup);
+    .finally(() => renderLoading(false, submitButton));
 }
 
 profileFormElement.addEventListener("submit", handleProfileSubmit);
 // добавление новых карточек
 function handleCardSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true);
+  const submitButton = cardFormElement.querySelector(".popup__button");
+  renderLoading(true, submitButton);
   uploadNewCard(cardNameInput.value, cardImageInput.value)
     .then((newCardItem) => {
       addCard(newCardItem);
@@ -162,7 +158,7 @@ function handleCardSubmit(evt) {
     .catch((err) => {
       console.error("Ошибка при отправке карточки:", err);
     })
-    .finally(() => renderLoading(false));
+    .finally(() => renderLoading(false, submitButton));
 
 }
 
@@ -170,14 +166,15 @@ cardFormElement.addEventListener("submit", handleCardSubmit);
 // обновление аватара
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true);
+  const submitButton = avatarForm.querySelector(".popup__button");
+  renderLoading(true, submitButton);
   updateAvatar(avatarInput.value)
     .then((userData) => {
       profileImage.src = userData.avatar;
       closeModal(avatarPopup);
     })
     .catch((err) => console.error("Ошибка при обновлении аватара:", err))
-    .finally(() => renderLoading(false));
+    .finally(() => renderLoading(false, submitButton));
 }
 
 avatarForm.addEventListener("submit", handleAvatarSubmit);
